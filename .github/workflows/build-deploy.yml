@@ -1,28 +1,22 @@
 name: Build and Deploy
 on:
   push:
-    branches:
-      - main
-
+    branches: [ main ]
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Replace Google Script URL
+      - uses: actions/checkout@v2
+      - name: Build
+        env:
+          GOOGLE_APPS_SCRIPT_URL: ${{ secrets.GOOGLE_APPS_SCRIPT_URL }}
         run: |
-          # Create a temporary file with the replacement
-          sed "s|%%GOOGLE_SCRIPT_URL%%|${{ secrets.GOOGLE_SCRIPT_URL }}|g" script.js > script.js.tmp
-          # Move the temporary file to replace the original
-          mv script.js.tmp script.js
-          # Verify the replacement (will be hidden in logs)
-          echo "Verifying script.js content..."
-          grep -v "${{ secrets.GOOGLE_SCRIPT_URL }}" script.js || echo "Replacement successful"
-
+          mkdir dist
+          cp index.html dist/
+          cp styles.css dist/
+          node build.js
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           branch: gh-pages
-          folder: .
+          folder: dist
