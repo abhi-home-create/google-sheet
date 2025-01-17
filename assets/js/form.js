@@ -7,7 +7,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     const message = document.getElementById('message').value;
     
     // Replace with your actual Google Form URL and entry IDs
-    const formUrl = `https://docs.google.com/forms/d/e/1FAIpQLSc4ovtdhnknm9SLgXfkPvTeImrv4jrLlR02DXX09naToRaoxA/formResponse?usp=pp_url&entry.1045781291=${encodeURIComponent(name)}&entry.YYYYY=${encodeURIComponent(email)}&entry.ZZZZZ=${encodeURIComponent(message)}&submit=Submit`;
+    const formUrl = `https://docs.google.com/forms/d/e/1FAIpQLSc4ovtdhnknm9SLgXfkPvTeImrv4jrLlR02DXX09naToRaoxA/formResponse?usp=pp_url&entry.2005620554=${encodeURIComponent(name)}&entry.1045781291=${encodeURIComponent(email)}&entry.839337160=${encodeURIComponent(message)}&submit=Submit`;
 
     // Using iframe for submission
     const iframe = document.createElement('iframe');
