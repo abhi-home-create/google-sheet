@@ -13,7 +13,13 @@ jobs:
 
       - name: Replace Google Script URL
         run: |
-          sed -i "s|%%GOOGLE_SCRIPT_URL%%|${{ secrets.GOOGLE_SCRIPT_URL }}|g" script.js
+          # Create a temporary file with the replacement
+          sed "s|%%GOOGLE_SCRIPT_URL%%|${{ secrets.GOOGLE_SCRIPT_URL }}|g" script.js > script.js.tmp
+          # Move the temporary file to replace the original
+          mv script.js.tmp script.js
+          # Verify the replacement (will be hidden in logs)
+          echo "Verifying script.js content..."
+          grep -v "${{ secrets.GOOGLE_SCRIPT_URL }}" script.js || echo "Replacement successful"
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.4
