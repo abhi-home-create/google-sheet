@@ -9,9 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         try {
-            const response = await fetch(CONFIG.SCRIPT_URL, {
+            const response = await fetch('/.netlify/functions/submit-form', {
                 method: 'POST',
-                mode: 'no-cors',
                 headers: {
                     'Content-Type': 'application/json'
                 },
