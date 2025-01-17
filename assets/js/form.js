@@ -2,7 +2,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
     // Get your actual Google Form URL and replace the entry IDs
-    const formUrl = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse';
+    const formUrl = 'https://docs.google.com/forms/d/e/1V4jbdaf_y5z12VWPtqBJYgpkfLLxYyYRhfVUXEYrjq0/formResponse';
     
     const formData = new FormData();
     formData.append('entry.123456789', document.getElementById('name').value);
