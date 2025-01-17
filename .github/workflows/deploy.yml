@@ -9,11 +9,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: Process Form Submission
-        env:
-          SCRIPT_URL: ${{ secrets.GOOGLE_APPS_SCRIPT_URL }}
+      - name: Create processed script
         run: |
-          # Just verify the secret is available
-          if [ -n "$SCRIPT_URL" ]; then
-            echo "Secret URL is available for form processing"
-          fi
+          sed "s|'\${{ secrets.GOOGLE_APPS_SCRIPT_URL }}'|'${{ secrets.GOOGLE_APPS_SCRIPT_URL }}'|g" script.js > processed-script.js
+          mv processed-script.js script.js
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
+          publish_branch: gh-pages
