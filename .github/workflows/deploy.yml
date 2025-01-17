@@ -6,46 +6,14 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v2
       
-      - name: Update Script URL
+      - name: Process Form Submission
+        env:
+          SCRIPT_URL: ${{ secrets.GOOGLE_APPS_SCRIPT_URL }}
         run: |
-          echo "document.addEventListener('DOMContentLoaded', function() {
-            const SCRIPT_URL = '${{ secrets.GOOGLE_APPS_SCRIPT_URL }}';
-            document.getElementById('contactForm').addEventListener('submit', async function(e) {
-                e.preventDefault();
-                const formData = {
-                    name: document.getElementById('name').value,
-                    email: document.getElementById('email').value,
-                    message: document.getElementById('message').value
-                };
-                try {
-                    const response = await fetch(SCRIPT_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(formData)
-                    });
-                    document.getElementById('contactForm').reset();
-                    document.getElementById('successMessage').classList.remove('hidden');
-                    setTimeout(() => {
-                        document.getElementById('successMessage').classList.add('hidden');
-                    }, 3000);
-                } catch (error) {
-                    console.error('Error:', error);
-                }
-            });
-          });" > script.js
-
-      - name: Commit and Push Changes
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add script.js
-          git commit -m "Update script with secure URL [skip ci]"
-          git push
+          # Just verify the secret is available
+          if [ -n "$SCRIPT_URL" ]; then
+            echo "Secret URL is available for form processing"
+          fi
