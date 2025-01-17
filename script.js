@@ -1,3 +1,5 @@
+const GOOGLE_APPS_SCRIPT_URL = 'YOUR_SCRIPT_URL';
+
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('contactForm').addEventListener('submit', async function(e) {
         e.preventDefault();
