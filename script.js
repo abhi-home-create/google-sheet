@@ -1,55 +1,28 @@
-const GOOGLE_SCRIPT_URL = '%%GOOGLE_SCRIPT_URL%%';
-
-const form = document.getElementById('contact-form');
-const statusMessage = document.getElementById('status-message');
-
-form.addEventListener('submit', async (e) => {
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-
-    // Disable the submit button to prevent double submission
-    const submitButton = form.querySelector('button[type="submit"]');
-    submitButton.disabled = true;
+    
+    const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        message: document.getElementById('message').value
+    };
 
     try {
-        // Create FormData object
-        const formData = new FormData(form);
-        
-        // Convert FormData to searchParams
-        const searchParams = new URLSearchParams();
-        for (const [key, value] of formData) {
-            searchParams.append(key, value);
-        }
-
-        // Create the request
-        const response = await fetch(GOOGLE_SCRIPT_URL, {
-            redirect: 'follow',
+        const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
             method: 'POST',
             mode: 'no-cors',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/json'
             },
-            body: searchParams.toString()
+            body: JSON.stringify(formData)
         });
 
-        // Show success message
-        statusMessage.textContent = 'Message sent successfully!';
-        statusMessage.className = 'success';
-        statusMessage.style.display = 'block';
-        form.reset();
-
-    } catch (error) {
-        // Show error message
-        statusMessage.textContent = 'Error sending message. Please try again.';
-        statusMessage.className = 'error';
-        statusMessage.style.display = 'block';
-        console.error('Error:', error);
-    } finally {
-        // Re-enable the submit button
-        submitButton.disabled = false;
-        
-        // Hide status message after 5 seconds
+        document.getElementById('contactForm').reset();
+        document.getElementById('successMessage').classList.remove('hidden');
         setTimeout(() => {
-            statusMessage.style.display = 'none';
-        }, 5000);
+            document.getElementById('successMessage').classList.add('hidden');
+        }, 3000);
+    } catch (error) {
+        console.error('Error:', error);
     }
 });
