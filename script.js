@@ -1,17 +1,17 @@
+// Get the Google Apps Script URL from a global variable that will be replaced during build
+const GOOGLE_SCRIPT_URL = '%%GOOGLE_SCRIPT_URL%%';
+
 const form = document.getElementById('contact-form');
 const statusMessage = document.getElementById('status-message');
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // This will be replaced during build time by GitHub Actions
-    const scriptURL = '%%GOOGLE_SCRIPT_URL%%';
-
     try {
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
         
-        const response = await fetch(scriptURL, {
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
             mode: 'no-cors',
             headers: {
