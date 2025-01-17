@@ -7,7 +7,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     const message = document.getElementById('message').value;
     
     // Create the form URL with parameters
-    const formUrl = `https://docs.google.com/forms/d/e/1FAIpQLSc4ovtdhnknm9SLgXfkPvTeImrv4jrLlR02DXX09naToRaoxA/formResponse?usp=pp_url&entry.2005620554=${encodeURIComponent(name)}&entry.1045781291=${encodeURIComponent(email)}&entry.839337160=${encodeURIComponent(message)}&submit=Submit`;
+    const embedCode = `<iframe src="${formUrl}" width="640" height="800" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>`;
 
     // Add iframe to the page
     const iframe = document.createElement('iframe');
