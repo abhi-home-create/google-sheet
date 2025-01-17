@@ -1,30 +1,16 @@
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('contactForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const formData = {
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            message: document.getElementById('message').value
-        };
-
-        try {
-            const response = await fetch('https://script.google.com/macros/s/YOUR-SCRIPT-ID/exec', {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
-
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+    
+    // Google Forms pre-filled URL with entry.1234567890 format
+    const formUrl = `https://docs.google.com/forms/d/e/1V4jbdaf_y5z12VWPtqBJYgpkfLLxYyYRhfVUXEYrjq0/formResponse?usp=pp_url&entry.123=${name}&entry.456=${email}&entry.789=${message}&submit=Submit`;
+    
+    fetch(formUrl, {mode: 'no-cors'})
+        .then(() => {
             document.getElementById('contactForm').reset();
-            document.getElementById('successMessage').classList.remove('hidden');
-            setTimeout(() => {
-                document.getElementById('successMessage').classList.add('hidden');
-            }, 3000);
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    });
+            alert('Message sent!');
+        });
 });
