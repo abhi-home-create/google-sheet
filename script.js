@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Fetch the script URL from a server endpoint or environment variable
+    const scriptUrl = window.SCRIPT_URL || process.env.SCRIPT_URL;
+    
     document.getElementById('contactForm').addEventListener('submit', async function(e) {
         e.preventDefault();
         
@@ -9,8 +12,9 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         try {
-            const response = await fetch('/.netlify/functions/submit-form', {
+            const response = await fetch(scriptUrl, {
                 method: 'POST',
+                mode: 'no-cors',
                 headers: {
                     'Content-Type': 'application/json'
                 },
