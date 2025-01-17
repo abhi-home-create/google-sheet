@@ -6,12 +6,15 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v2
       
       - name: Update Script URL
         run: |
           echo "document.addEventListener('DOMContentLoaded', function() {
+            const SCRIPT_URL = '${{ secrets.GOOGLE_APPS_SCRIPT_URL }}';
             document.getElementById('contactForm').addEventListener('submit', async function(e) {
                 e.preventDefault();
                 const formData = {
@@ -20,7 +23,7 @@ jobs:
                     message: document.getElementById('message').value
                 };
                 try {
-                    const response = await fetch('${{ secrets.GOOGLE_APPS_SCRIPT_URL }}', {
+                    const response = await fetch(SCRIPT_URL, {
                         method: 'POST',
                         mode: 'no-cors',
                         headers: {
@@ -39,10 +42,10 @@ jobs:
             });
           });" > script.js
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .
-          publish_branch: gh-pages
-
+      - name: Commit and Push Changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add script.js
+          git commit -m "Update script with secure URL [skip ci]"
+          git push
