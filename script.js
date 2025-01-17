@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const SCRIPT_URL = '${{ secrets.GOOGLE_APPS_SCRIPT_URL }}';
+    
     document.getElementById('contactForm').addEventListener('submit', async function(e) {
         e.preventDefault();
         
@@ -9,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         try {
-            const response = await fetch(process.env.SCRIPT_URL, {
+            const response = await fetch(SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: {
