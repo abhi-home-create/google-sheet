@@ -1,4 +1,4 @@
-const GOOGLE_APPS_SCRIPT_URL = 'YOUR_SCRIPT_URL';
+const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxtm-5Rb6AB1MlKtDIF2g7gLVf6Q8e4HBYjB7Ps8yJlsDVEIon24shBikwC298Duuymaw/exec';
 
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('contactForm').addEventListener('submit', async function(e) {
