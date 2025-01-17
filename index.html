@@ -2,30 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Form</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-    <div class="container">
-        <form id="contactForm">
-            <h2>Contact Us</h2>
-            <div class="form-group">
-                <input type="text" id="name" name="name" required>
-                <label for="name">Name</label>
-            </div>
-            <div class="form-group">
-                <input type="email" id="email" name="email" required>
-                <label for="email">Email</label>
-            </div>
-            <div class="form-group">
-                <textarea id="message" name="message" required></textarea>
-                <label for="message">Message</label>
-            </div>
-            <button type="submit">Send Message</button>
-        </form>
-        <div id="successMessage" class="hidden">Thank you for your message!</div>
-    </div>
-    <script src="script.js"></script>
+    <form id="contactForm">
+        <input type="text" id="name" placeholder="Name" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <textarea id="message" placeholder="Message" required></textarea>
+        <button type="submit">Send</button>
+        <div id="successMessage" class="hidden">Message sent!</div>
+    </form>
+    <script src="assets/js/form.js"></script>
 </body>
 </html>
